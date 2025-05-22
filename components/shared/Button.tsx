@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { theme } from '@/styles/theme';
+import { theme } from '../../styles/theme';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -80,4 +80,4 @@ export const Button = styled.button<ButtonProps>`
     opacity: 0.6;
     cursor: not-allowed;
   }
-`; 
+`;
