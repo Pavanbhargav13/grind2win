@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FiSearch, FiUser } from 'react-icons/fi';
-import { theme } from '@/styles/theme';
+import { theme } from '../../styles/theme';
 
 const Nav = styled.nav`
   position: fixed;
@@ -92,4 +92,4 @@ export const TopNavBar: React.FC = () => {
       </ProfileIcon>
     </Nav>
   );
-}; 
+};
