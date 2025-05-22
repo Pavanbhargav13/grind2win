@@ -2,26 +2,22 @@
 
 import React, { useState } from 'react';
 import { useServerInsertedHTML } from 'next/navigation';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { StyleRegistry, createStyleRegistry } from 'styled-jsx';
 
-export default function StyledComponentsRegistry({
+export default function StyledJsxRegistry({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
+  // Only create stylesheet once with lazy initial state
+  // x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
+  const [styleRegistry] = useState(() => createStyleRegistry());
 
   useServerInsertedHTML(() => {
-    const styles = styledComponentsStyleSheet.getStyleElement();
-    styledComponentsStyleSheet.instance.clearTag();
+    const styles = styleRegistry.styles();
+    styleRegistry.flush();
     return <>{styles}</>;
   });
 
-  if (typeof window !== 'undefined') return <>{children}</>;
-
-  return (
-    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
-      {children}
-    </StyleSheetManager>
-  );
+  return <StyleRegistry registry={styleRegistry}>{children}</StyleRegistry>;
 }
